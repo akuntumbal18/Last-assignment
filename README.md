@@ -21,7 +21,6 @@
     html,body{height:100%}
     html { scroll-behavior: smooth; } /* smooth scroll for anchor links */
 
-    /* Page background: gradient with slight blur via pseudo-element */
     body{
       margin:0;
       font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
@@ -34,14 +33,13 @@
       z-index:var(--content-z);
       min-height:100vh;
     }
-    /* Use ::before to render a soft, blurred gradient behind the content */
     body::before{
       content: "";
       position: fixed;
       inset: 0;
       z-index: -1;
       pointer-events: none;
-      /* base gradient + accents */
+      /* soft gradient background */
       background-image:
         radial-gradient(600px 300px at 85% 10%, rgba(255,173,110,0.14), transparent 30%),
         radial-gradient(700px 420px at 20% 85%, rgba(86,156,255,0.12), transparent 30%),
@@ -54,8 +52,6 @@
     }
 
     .container{max-width:1000px;margin:0 auto;padding:24px;position:relative;z-index:var(--content-z)}
-
-    /* Header */
     .site-header{
       background: linear-gradient(90deg, rgba(255,255,255,0.30), rgba(255,255,255,0.18));
       border-bottom:1px solid rgba(255,255,255,0.06);
@@ -76,13 +72,14 @@
     .header-inner{display:flex;align-items:center;justify-content:space-between}
     .brand{display:flex;gap:14px;align-items:center}
     .avatar {width:64px;height:64px;border-radius:50%;overflow:hidden;flex:0 0 64px;display:block;border:1px solid rgba(0,0,0,0.06);background:#fff}
-    /* profile picture darkened slightly (keeps image but darker) */
+    /* PROFILE IMAGE now uses the external link provided */
     .avatar img{
       width:100%;
       height:100%;
       object-fit:cover;
+      object-position:center;
       display:block;
-      filter: brightness(0.55) contrast(0.95); /* gelapkan foto */
+      filter: brightness(0.55) contrast(0.95);
       transition: filter .25s ease;
     }
     .avatar:hover img{ filter: brightness(0.75) contrast(0.95); }
@@ -93,7 +90,6 @@
     .nav{display:flex;align-items:center;gap:8px}
     #themeToggle{background:transparent;border:0;color:var(--font-color);cursor:pointer;font-size:18px;padding:6px;border-radius:6px}
 
-    /* Ensure buttons and links also use the font color */
     a, a:visited, button, .btn, .btn.ghost, .link-as-button, .blog-item a, .socials a {
       color: var(--font-color) !important;
     }
@@ -118,23 +114,20 @@
       .nav{gap:6px}
     }
 
-    /* Quick sections links */
     .quick-sections{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
     .quick-link{padding:12px 16px;background:linear-gradient(90deg,var(--accent1),var(--accent2));color:var(--font-color);border-radius:10px;text-decoration:none;font-weight:600;cursor:pointer;border:0}
     .section-title{margin:0 0 10px;font-size:18px;color:var(--font-color)}
-    /* ensure sections are visible below sticky header */
     section{scroll-margin-top:90px}
-    /* art gallery */
+
     .art-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:12px}
     figure.art-card{background:rgba(255,255,255,0.66);height:260px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;color:var(--font-color);overflow:hidden;border:1px solid rgba(0,0,0,0.04)}
     figure.art-card img{width:100%;height:180px;object-fit:cover;display:block}
     figure.art-card figcaption{padding:8px 10px;font-size:13px;color:var(--font-color);text-align:center}
-    /* blog list */
+
     .blog-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
     .blog-item{padding:12px;border-radius:8px;background:rgba(255,255,255,0.66);border:1px solid rgba(0,0,0,0.04)}
     .blog-item a{color:var(--font-color);text-decoration:none;font-weight:600}
 
-    /* preview badge */
     .preview-badge{position:fixed;right:14px;bottom:14px;background:rgba(0,0,0,0.5);color:var(--font-color);padding:8px 10px;border-radius:10px;font-size:13px;backdrop-filter:blur(4px);z-index:60}
   </style>
 </head>
@@ -143,8 +136,8 @@
     <div class="container header-inner">
       <div class="brand">
         <div class="avatar" aria-hidden="true">
-          <!-- simpan foto portrait Anda sebagai 'profile.jpg' di folder yang sama -->
-          <img src="profile.jpg" alt="Davin Marciano E" id="profileImage" />
+          <!-- Profile image now set to the requested external link -->
+          <img src="https://cdn.discordapp.com/attachments/973073382558019594/1446508334160023613/IMG-20251028-WA0054.jpg?ex=69343d5d&is=6932ebdd&hm=54070c234d5020734c789c18ff44645d684a1501c462ccab1b6bc475844b31c9" alt="Davin Marciano E" id="profileImage" />
         </div>
         <div>
           <h1 id="name">Davin Marciano E</h1>
@@ -163,7 +156,6 @@
   </header>
 
   <main class="container">
-    <!-- Quick jump panel -->
     <section class="card" aria-label="Quick sections">
       <h3 class="section-title">Jump to a section</h3>
       <div class="quick-sections">
@@ -173,7 +165,6 @@
       </div>
     </section>
 
-    <!-- About me -->
     <section id="about-me" class="card hero" aria-label="About me">
       <div class="hero-left">
         <h2>Hello — I’m <span class="accent">Davin Marciano E</span></h2>
@@ -194,46 +185,55 @@
       </div>
     </section>
 
-    <!-- The Art -->
     <section id="the-art" class="card" aria-label="The Art">
       <h3 style="color:var(--font-color)">The Art</h3>
       <p class="muted">Galeri karya — klik gambar untuk melihat lebih besar.</p>
       <div class="art-grid" aria-hidden="false">
-        <!-- Existing art 1-4 -->
+        <!-- Art images use the links you provided earlier -->
         <figure class="art-card">
-          <a href="art1.jpg" target="_blank" rel="noopener"><img src="art1.jpg" alt="Gambar 1 — tangan kanan" /></a>
+          <a href="https://cdn.discordapp.com/attachments/973073382558019594/1446504901852270745/IMG-20251130-WA0013.jpg?ex=69343a2b&is=6932e8ab&hm=744eeccfb97f444ea3e909b356006bf90f53997f12b9d1e1922a77ee17ac61a6&" target="_blank" rel="noopener">
+            <img src="https://cdn.discordapp.com/attachments/973073382558019594/1446504901852270745/IMG-20251130-WA0013.jpg?ex=69343a2b&is=6932e8ab&hm=744eeccfb97f444ea3e909b356006bf90f53997f12b9d1e1922a77ee17ac61a6&" alt="Gambar 1" />
+          </a>
           <figcaption>Gambar tangan bagian kanan dengan pose terbuka</figcaption>
         </figure>
 
         <figure class="art-card">
-          <a href="art2.jpg" target="_blank" rel="noopener"><img src="art2.jpg" alt="Gambar 2 — punggung tangan kiri" /></a>
+          <a href="https://cdn.discordapp.com/attachments/973073382558019594/1446504902443405463/IMG-20251204-WA0015.jpg?ex=69343a2b&is=6932e8ab&hm=db9e97a245a328c9dcb47d14dcfe79e693013cad3c90897368ea8dc58f476455&" target="_blank" rel="noopener">
+            <img src="https://cdn.discordapp.com/attachments/973073382558019594/1446504902443405463/IMG-20251204-WA0015.jpg?ex=69343a2b&is=6932e8ab&hm=db9e97a245a328c9dcb47d14dcfe79e693013cad3c90897368ea8dc58f476455&" alt="Gambar 2" />
+          </a>
           <figcaption>Gambar punggung tangan bagian kiri</figcaption>
         </figure>
 
         <figure class="art-card">
-          <a href="art3.jpg" target="_blank" rel="noopener"><img src="art3.jpg" alt="Gambar 3 — pemandangan" /></a>
+          <a href="https://cdn.discordapp.com/attachments/973073382558019594/1446504902816694362/IMG-20251204-WA0026.jpg?ex=69343a2b&is=6932e8ab&hm=2b3f0344f373f0c644254b7713114aa787918332e29edbb7f973342e651d7e0d&" target="_blank" rel="noopener">
+            <img src="https://cdn.discordapp.com/attachments/973073382558019594/1446504902816694362/IMG-20251204-WA0026.jpg?ex=69343a2b&is=6932e8ab&hm=2b3f0344f373f0c644254b7713114aa787918332e29edbb7f973342e651d7e0d&" alt="Gambar 3" />
+          </a>
           <figcaption>Gambar pemandangan alam dengan teknik Hacthing</figcaption>
         </figure>
 
         <figure class="art-card">
-          <a href="art4.jpg" target="_blank" rel="noopener"><img src="art4.jpg" alt="Gambar 4 — lengan berotot" /></a>
+          <a href="https://cdn.discordapp.com/attachments/973073382558019594/1446504903177535622/IMG-20251205-WA0002.jpg?ex=69343a2b&is=6932e8ab&hm=40645401abea77c71ca323e3545f899ce5c292850dedaae59febf1d54501611c&" target="_blank" rel="noopener">
+            <img src="https://cdn.discordapp.com/attachments/973073382558019594/1446504903177535622/IMG-20251205-WA0002.jpg?ex=69343a2b&is=6932e8ab&hm=40645401abea77c71ca323e3545f899ce5c292850dedaae59febf1d54501611c&" alt="Gambar 4" />
+          </a>
           <figcaption>Lengan cowok dengan otot</figcaption>
         </figure>
 
-        <!-- New images from your recent message -->
         <figure class="art-card">
-          <a href="art5.jpg" target="_blank" rel="noopener"><img src="art5.jpg" alt="Nirmana tekstur batu dan kacang hijau" /></a>
+          <a href="https://cdn.discordapp.com/attachments/973073382558019594/1446504903550832741/WhatsApp_Image_2025-12-05_at_11.29.29_0589c5e4.jpg?ex=69343a2b&is=6932e8ab&hm=f96196e69ca28db491cf1853f36445b3e4536664826f9a4822ce548fb767e5ae&" target="_blank" rel="noopener">
+            <img src="https://cdn.discordapp.com/attachments/973073382558019594/1446504903550832741/WhatsApp_Image_2025-12-05_at_11.29.29_0589c5e4.jpg?ex=69343a2b&is=6932e8ab&hm=f96196e69ca28db491cf1853f36445b3e4536664826f9a4822ce548fb767e5ae&" alt="Gambar 5" />
+          </a>
           <figcaption>Nirmana tekstur dengan menggunakan batu dan kacang hijau</figcaption>
         </figure>
 
         <figure class="art-card">
-          <a href="art6.jpg" target="_blank" rel="noopener"><img src="art6.jpg" alt="Gambar tangan posisi terbuka kanan dan kiri" /></a>
+          <a href="https://cdn.discordapp.com/attachments/973073382558019594/1446504903899087012/WhatsApp_Image_2025-12-05_at_11.29.30_2f20774b.jpg?ex=69343a2b&is=6932e8ab&hm=920021d7f7531ce913c367d926a73262062001175f4f4caadc09fba57dc78a07&" target="_blank" rel="noopener">
+            <img src="https://cdn.discordapp.com/attachments/973073382558019594/1446504903899087012/WhatsApp_Image_2025-12-05_at_11.29.30_2f20774b.jpg?ex=69343a2b&is=6932e8ab&hm=920021d7f7531ce913c367d926a73262062001175f4f4caadc09fba57dc78a07&" alt="Gambar 6" />
+          </a>
           <figcaption>Gambar tangan dengan posisi terbuka bagian kanan dan kiri</figcaption>
         </figure>
       </div>
     </section>
 
-    <!-- Blog -->
     <section id="blog" class="card" aria-label="Blog">
       <h3 style="color:var(--font-color)">Blog</h3>
       <p class="muted">Recent posts and thoughts — link each title to the full post.</p>
@@ -249,7 +249,6 @@
       </ul>
     </section>
 
-    <!-- Skills -->
     <section id="skills" class="card">
       <h3 style="color:var(--font-color)">Skills</h3>
       <p class="muted">Keahlian utama saya.</p>
@@ -262,7 +261,6 @@
       </ul>
     </section>
 
-    <!-- Contact -->
     <section id="contact" class="card">
       <h3 style="color:var(--font-color)">Contact</h3>
       <p class="muted">Want to work together or just say hi? Send a message.</p>
@@ -297,7 +295,6 @@
 
   <script>
     (function(){
-      // Theme toggle + small interactions
       const toggle = document.getElementById('themeToggle');
       const root = document.documentElement;
       const dark = {
@@ -324,7 +321,6 @@
         toggle.textContent = saved === 'light' ? '🌞' : '🌙';
       }
 
-      // Copy email to clipboard
       const copyBtn = document.getElementById('copyEmail');
       if(copyBtn){
         copyBtn.addEventListener('click', async () => {
@@ -339,21 +335,19 @@
         });
       }
 
-      // Mailto form fallback
       window.sendMail = function(e){
         e.preventDefault();
         const name = document.getElementById('c-name').value.trim();
         const email = document.getElementById('c-email').value.trim();
         const msg = document.getElementById('c-message').value.trim();
         const to = 'marcianodavin@gmail.com';
-        const subject = encodeURIComponent(`Message from ${name}`);
-        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${msg}`);
-        const mailto = `mailto:${to}?subject=${subject}&body=${body}`;
+        const subject = encodeURIComponent(Message from ${name});
+        const body = encodeURIComponent(Name: ${name}\nEmail: ${email}\n\n${msg});
+        const mailto = mailto:${to}?subject=${subject}&body=${body};
         window.location.href = mailto;
         return false;
       };
 
-      // Header blur on scroll
       const header = document.getElementById('siteHeader');
       const SCROLL_THRESHOLD = 40;
       function onScroll(){
@@ -369,7 +363,6 @@
         }
       }, { passive: true });
 
-      // Profile img fallback to SVG
       const img = document.getElementById('profileImage');
       if(img){
         img.addEventListener('error', function(){
